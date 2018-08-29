@@ -93,13 +93,11 @@ class ViewController: UIViewController {
                 frame.origin.x = CGFloat(arc4random_uniform(viewWidth - 40))
                 frame.origin.y = CGFloat(arc4random_uniform(viewHeight - 40 - 80) + 80)
                 self.view.subviews[i].frame = frame
-                
+                let randomDegree = CGFloat(arc4random_uniform(359) + 1)
+                let randomAngle = (randomDegree*CGFloat.pi)/180.0
+                self.view.subviews[i].transform = CGAffineTransform(rotationAngle: randomAngle)
             }
         }
-        
-        
-        
-        
     }
     
     private func gather() {
@@ -107,11 +105,13 @@ class ViewController: UIViewController {
             self.view.subviews[0].alpha = 1
             var xPosition: CGFloat = 45.0
             for i in 1..<self.view.subviews.count {
+                self.view.subviews[i].transform = .identity
                 var frame = self.view.subviews[i].frame
                 frame.origin.x = xPosition
                 frame.origin.y = self.view.bounds.height/2 + 20
                 self.view.subviews[i].frame = frame
                 xPosition += self.labelDimensions + self.labelPadding
+                // .transform = .identity can't go at the bottom or things get a little messed up
             }
         }
     }
