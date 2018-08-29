@@ -87,15 +87,25 @@ class ViewController: UIViewController {
             self.view.subviews[0].alpha = 0.0
             
             for i in 1..<self.view.subviews.count {
+                
+                let eachLabel = self.view.subviews[i] as? UILabel
                 var frame = self.view.subviews[i].frame
                 let viewWidth = UInt32(self.view.bounds.width)
                 let viewHeight = UInt32(self.view.bounds.height)
                 frame.origin.x = CGFloat(arc4random_uniform(viewWidth - 40))
                 frame.origin.y = CGFloat(arc4random_uniform(viewHeight - 40 - 80) + 80)
-                self.view.subviews[i].frame = frame
+                eachLabel?.frame = frame
+                eachLabel?.layer.backgroundColor = UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1).cgColor
+                
+//                UIView.transition(with: eachLabel!, duration: 2.0, options: .transitionCrossDissolve, animations: {
+//                    eachLabel?.textColor = UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1)
+//                }, completion: nil)
+                
+                // So randomDegree is never 0
                 let randomDegree = CGFloat(arc4random_uniform(359) + 1)
+                // Converts to radians
                 let randomAngle = (randomDegree*CGFloat.pi)/180.0
-                self.view.subviews[i].transform = CGAffineTransform(rotationAngle: randomAngle)
+                eachLabel?.transform = CGAffineTransform(rotationAngle: randomAngle)
             }
         }
     }
@@ -112,6 +122,7 @@ class ViewController: UIViewController {
                 self.view.subviews[i].frame = frame
                 xPosition += self.labelDimensions + self.labelPadding
                 // .transform = .identity can't go at the bottom or things get a little messed up
+                
             }
         }
     }
