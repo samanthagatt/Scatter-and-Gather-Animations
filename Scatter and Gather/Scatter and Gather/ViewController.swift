@@ -122,7 +122,7 @@ class ViewController: UIViewController {
                 self.view.subviews[i].frame = frame
                 xPosition += self.labelDimensions + self.labelPadding
                 // .transform = .identity can't go at the bottom or things get a little messed up
-                
+                self.view.subviews[i].layer.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0).cgColor
             }
         }
     }
