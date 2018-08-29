@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     // MARK: - Properties
     
     var shouldScramble = false
+    let labelDimensions: CGFloat = 40.0
+    let labelPadding: CGFloat = 8.0
 
     
     // MARK: - Actions
@@ -65,8 +67,6 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([imageViewWidth, imageViewHeight, imageViewCenterX, imageViewCenterY])
         
         
-        let labelDimensions: CGFloat = 40.0
-        let labelPadding: CGFloat = 8.0
         var xPosition: CGFloat = 45.0
         
         let word = "Lambda"
@@ -93,6 +93,7 @@ class ViewController: UIViewController {
                 frame.origin.x = CGFloat(arc4random_uniform(viewWidth - 40))
                 frame.origin.y = CGFloat(arc4random_uniform(viewHeight - 40 - 80) + 80)
                 self.view.subviews[i].frame = frame
+                
             }
         }
         
@@ -102,7 +103,17 @@ class ViewController: UIViewController {
     }
     
     private func gather() {
-        
+        UIView.animate(withDuration: 2.0) {
+            self.view.subviews[0].alpha = 1
+            var xPosition: CGFloat = 45.0
+            for i in 1..<self.view.subviews.count {
+                var frame = self.view.subviews[i].frame
+                frame.origin.x = xPosition
+                frame.origin.y = self.view.bounds.height/2 + 20
+                self.view.subviews[i].frame = frame
+                xPosition += self.labelDimensions + self.labelPadding
+            }
+        }
     }
 }
 
